@@ -1,1 +1,1 @@
-web: gunicorn restaurantwebsite.wsgi
+web: gunicorn thesavoryspot.wsgi

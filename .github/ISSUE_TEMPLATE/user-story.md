@@ -1,7 +1,7 @@
 ---
-name: USER STORY <TITLE>
+name: USER STORY
 about: Default user story
-title: ''
+title: USER STORY <TITLE>
 labels: ''
 assignees: ''
 

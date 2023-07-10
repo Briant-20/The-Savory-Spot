@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from django.views import generic
+from .models import Body
 
-# Create your views here.
+
+class Body(generic.ListView):
+    model = Body
+    template_name = "index.html"

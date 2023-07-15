@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('label', models.CharField(max_length=50)),
                 ('information', models.TextField()),
-                ('menu', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='restaurantwebsite.menu')),
+                ('menu', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='menu.menu')),
             ],
         ),
         migrations.CreateModel(
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=100)),
                 ('content', models.TextField()),
                 ('featured_image', cloudinary.models.CloudinaryField(default='placeholder', max_length=255, verbose_name='image')),
-                ('links', models.ManyToManyField(blank=True, to='restaurantwebsite.Body')),
+                ('links', models.ManyToManyField(blank=True, to='menu.Body')),
             ],
         ),
     ]

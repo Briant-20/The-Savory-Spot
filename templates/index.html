@@ -1,20 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% for menu in menu_list%}
+{% for menu in menu_list %}
     <h1>{{ menu.title }}</h1>
-    <p>{{menu.content}}</p>
+    <p>{{ menu.content }}</p>
     {% for category in menu.category_set.all %}
-        <h3>{{ category.title }}</h3>
-
+        <button class="category-titles" category="{{category}}">{{ category.title }}</button>
         {% for item in category.item_set.all %}
-            <h6>{{ item.name }}</h6>
-            <p>{{ item.description }}</p>
-            <p>Price: ${{ item.price }}</p>
+            <h6 class="category-items" style="display: none;" category="{{category}}">{{ item.name }}</h6>
+            <p class="display: none;">{{ item.description }}</p>
+            <p style="display: none;">Price: ${{ item.price }}</p>
+
         {% endfor %}
-
     {% endfor %}
-
 {% endfor %}
 
 {%endblock%}

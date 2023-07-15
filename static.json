@@ -1,0 +1,11 @@
+{
+    "headers": {
+      "/static/js/script.js": {
+        "Content-Type": "application/javascript"
+      },
+      "/static/css/style.css": {
+        "Content-Type": "text/css"
+      }
+    }
+    
+  }

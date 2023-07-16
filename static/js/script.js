@@ -9,10 +9,10 @@ let display_category = (categoryTitle) =>{
         let categoryItem = categoryItems[i];
         itemCategory = categoryItem.getAttribute("category");
         if (itemCategory === category){
-            categoryItem.style.display = 'flex';
+            categoryItem.style.visibility = 'visible';
         }
         else{
-            categoryItem.style.display = 'none';
+            categoryItem.style.visibility = 'hidden';
         }
     }
     }

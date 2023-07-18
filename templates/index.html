@@ -12,7 +12,7 @@
     <div class="item-container">
     {% for category in menu.category_set.all %}
         {% for item in category.item_set.all %}
-        <div class="category-items items" style="visibility: hidden;"  category="{{category}}">
+        <div class="category-items items" style="display: none;"  category="{{category}}">
             <h6 class="item">{{ item.name }}</h6>
             <p class="item">{{ item.description }}</p>
             <p class="item">Price: ${{ item.price }}</p>

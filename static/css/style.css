@@ -1,7 +1,12 @@
 footer{
     background-color: black;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
-
+body{
+    background-color: #fafafe;
+}
 .center-container {
     display: flex;
     flex-direction: column;
@@ -36,7 +41,7 @@ footer{
 .items {
     width: calc(33% - 20px);
     padding: 10px;
-    background-color: white;
+    background-color: #fafafe;
     border-radius: 5px;
     margin-bottom: 20px;
 }
@@ -48,7 +53,7 @@ footer{
 .item {
     margin-bottom: 10px;
     padding: 10px;
-    background-color: lightgrey;
+    background-color: white;
     border-radius: 5px;
     box-shadow: 0 2px 4px black;
   }

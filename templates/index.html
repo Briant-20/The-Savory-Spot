@@ -3,6 +3,7 @@
 <div class="center-container">
 {% for menu in menu_list %}
     <h1>{{ menu.title }}</h1>
+    <input type="text" id="searchInput" placeholder="Search menu">
     <p>{{ menu.content }}</p>
     <div class="button-container">
     {% for category in menu.category_set.all %}
@@ -11,15 +12,27 @@
     </div>
     <div class="item-container">
     {% for category in menu.category_set.all %}
-        {% for item in category.item_set.all %}
-        <div class="category-items items" style="display: none;"  category="{{category}}">
-            <h6 class="item">{{ item.name }}</h6>
-            <p class="item">{{ item.description }}</p>
-            <p class="item">Price: ${{ item.price }}</p>
-        </div>
-        {% endfor %}
+            {% for item in category.item_set.all %}
+                <div class="category-items items" style="display: none;" category="{{category}}" name="{{item.name}}">
+                    <h6 class="item">{{ item.name }}</h6>
+                    <p class="item">{{ item.description }}</p>
+                    <p class="item">Price: ${{ item.price }}</p>
+                </div>
+            {% endfor %}
     {% endfor %}
     </div>
 {% endfor %}
 </div>
+<script>
+$(document).ready(function() {
+  $('#searchInput').on('input', function() {
+    var searchTerm = $(this).val().toLowerCase();
+    $('.category-items.items').each(function() {
+      var itemName = $(this).find('.item:first-child').text().toLowerCase();
+      var itemMatches = itemName.indexOf(searchTerm) > -1;
+      $(this).toggle(searchTerm === '' ? false : itemMatches);
+    });
+  });
+});
+</script>
 {%endblock%}

@@ -39,7 +39,7 @@ body{
 }
 
 .items {
-    width: calc(33% - 20px);
+    width: 33%;
     padding: 10px;
     background-color: #fafafe;
     border-radius: 5px;

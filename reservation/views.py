@@ -13,6 +13,7 @@ class ReservationView(View):
             'current_year': current_year,
             'monthRange': range(12),
             'dayRange': range(30),
+            'timeRange': [16,17,18,19,20],
         }
 
         return render(request, self.template_name, context)

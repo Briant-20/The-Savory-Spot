@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h2>Create New Reservation:</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="year">Year:</label>
+        <select name="year" id="year">
+            <option value="{{ current_year }}">  {{ current_year}}</option>
+            {% for i in "123" %}
+                <option>  {{ current_year|add:forloop.counter }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="month">Month:</label>
+        <select name="month" id="month">
+            {% for i in monthRange %}
+            <option>  {{ forloop.counter }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="day">Day:</label>
+        <select name="day" id="day"></select><br>
+
+        <label for="time">Time:</label>
+        <select name="time" id="time">
+        </select><br>
+
+        <label for="table_title">Table Title:</label>
+        <input type="text" name="table_title" id="table_title" required><br>
+
+        <button type="submit">Create Reservation</button>
+    </form>
+
+{% endblock %}

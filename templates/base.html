@@ -45,6 +45,9 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'reservation' %}">Book Reservation</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'contact' %}">Contact Us</a>
                     </li>
                     {% if user.is_authenticated %}

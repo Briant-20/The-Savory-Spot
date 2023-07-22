@@ -2,44 +2,45 @@
 {% block content %}
 
     <h2>Create New Reservation:</h2>
-    <form method="post">
+    <form method="post" action="{% url 'create_reservation' %}">
         {% csrf_token %}
         <label for="year">Year:</label>
         <select name="year" id="year">
-            <option value="{{ current_year }}">  {{ current_year}}</option>
+            <option value="{{ current_year }}">{{ current_year }}</option>
             {% for i in "123" %}
-                <option>  {{ current_year|add:forloop.counter }}</option>
+                <option value="{{ current_year|add:forloop.counter }}">{{ current_year|add:forloop.counter }}</option>
             {% endfor %}
         </select><br>
 
         <label for="month">Month:</label>
         <select name="month" id="month">
-            <option value="">Select month</option>
+            <option>Select month</option>
             {% for i in monthRange %}
-            <option>  {{ forloop.counter }}</option>
+                <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
             {% endfor %}
         </select><br>
 
         <label for="day">Day:</label>
         <select name="day" id="day">
-            <option value="">Select day</option>
+            <option>Select day</option>
         </select><br>
 
         <label for="time">Time:</label>
         <select name="time" id="time">
-                <option value="">Select a time</option>
-                {% for hour in timeRange %}
-                            <option>{{ hour }}:00 pm</option>
-                            <option>{{ hour }}:30 pm </option>
-                {% endfor %}
-            </select><br>
+            <option value="">Select a time</option>
+            {% for hour in timeRange %}
+                <option value="{{ hour }}:00 pm">{{ hour }}:00 pm</option>
+                <option value="{{ hour }}:30 pm">{{ hour }}:30 pm</option>
+            {% endfor %}
+        </select><br>
 
         <label for="table_number">Table Number:</label>
-        <select name="time" id="time">
-        {% for i in "123" %}
-            <option>  {{ forloop.counter }}</option>
-        {% endfor %}
+        <select name="table_number" id="table_number">
+            {% for i in "123" %}
+                <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+            {% endfor %}
         </select><br>
+
         <button type="submit">Create Reservation</button>
     </form>
 

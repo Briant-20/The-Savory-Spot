@@ -9,13 +9,18 @@ class ReservationView(View):
 
     def get(self, request):
         current_year = django_settings.CURRENT_YEAR
+        reservation = request.session.get('reserved', False)
+        request.session.pop('reserved', None)
+        booked = request.session.get('booked', False)
+        request.session.pop('booked', None)
 
         context = {
             'current_year': current_year,
             'monthRange': range(12),
             'timeRange': [16, 17, 18, 19, 20],
+            'reserved': reservation,
+            'booked': booked,
         }
-
         return render(request, self.template_name, context)
 
 
@@ -42,7 +47,9 @@ def create_reservation(request):
         ).exists()
 
         if existing_reservation:
-            return render(request, 'reservation.html')
+
+            request.session['booked'] = True
+            return redirect('reservation')
 
         Reservation.objects.create(
             year=year_instance,
@@ -51,7 +58,5 @@ def create_reservation(request):
             time=time_instance,
             table=table_instance
         )
-
+        request.session['reserved'] = True
         return redirect('reservation')
-
-    return render(request, 'reservation.html')

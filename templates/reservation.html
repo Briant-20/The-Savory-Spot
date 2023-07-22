@@ -44,4 +44,14 @@
 
         <button type="submit">Create Reservation</button>
     </form>
+{%if reserved%}
+<div class="alert alert-success" role="alert">
+    Your reservation has been booked
+</div>
+{%endif%}
+{%if booked%}
+<div class="alert alert-danger" role="alert">
+    Sorry this time is fully booked out
+</div>
+{%endif%}
 {% endblock %}

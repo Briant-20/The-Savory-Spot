@@ -33,6 +33,17 @@ def create_reservation(request):
         time_instance, _ = Time.objects.get_or_create(days=day_instance, time=time)
         table_instance, _ = Table.objects.get_or_create(times=time_instance, table=table)
 
+        existing_reservation = Reservation.objects.filter(
+            year=year_instance,
+            month=month_instance,
+            day=day_instance,
+            time=time_instance,
+            table=table_instance
+        ).exists()
+
+        if existing_reservation:
+            return render(request, 'reservation.html')
+
         Reservation.objects.create(
             year=year_instance,
             month=month_instance,

@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-
     <h2>Create New Reservation:</h2>
-    <form method="post" action="{% url 'create_reservation' %}">
+    {% if not user.is_authenticated %}
+    <p>Please log in to book a reservation.</p>
+    {% endif %}
+    <script type="application/json" id="user-details">
+        {
+            "email": "{{ user.email }}",
+            "username": "{{ user.username }}"
+        }
+    </script>
+    <form method="post" action="{% url 'create_reservation' %}" onsubmit="return sendReservationMail(this);">
         {% csrf_token %}
         <label for="year">Year:</label>
         <select name="year" id="year" required>

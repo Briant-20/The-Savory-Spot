@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Year, Month, Day, Time, Table, Reservation
 from django.views import View
 import thesavoryspot.settings as django_settings
-
+from django.contrib.auth.decorators import login_required
 
 class ReservationView(View):
     template_name = 'reservation.html'
@@ -23,7 +23,7 @@ class ReservationView(View):
         }
         return render(request, self.template_name, context)
 
-
+@login_required
 def create_reservation(request):
     if request.method == 'POST':
         year = request.POST.get('year')

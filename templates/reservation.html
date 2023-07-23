@@ -34,14 +34,6 @@
             {% endfor %}
         </select><br>
 
-        <label for="table_number">Table Number:</label>
-        <select name="table_number" id="table_number" required>
-            <option value="">Select a table</option>
-            {% for i in "123" %}
-                <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
-            {% endfor %}
-        </select><br>
-
         <button type="submit">Create Reservation</button>
     </form>
 {%if reserved%}

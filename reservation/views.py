@@ -30,24 +30,24 @@ def create_reservation(request):
         month = request.POST.get('month')
         day = request.POST.get('day')
         time = request.POST.get('time')
-        table = request.POST.get('table_number')
 
         year_instance, _ = Year.objects.get_or_create(year=year)
         month_instance, _ = Month.objects.get_or_create(years=year_instance, month=month)
         day_instance, _ = Day.objects.get_or_create(months=month_instance, day=day)
         time_instance, _ = Time.objects.get_or_create(days=day_instance, time=time)
-        table_instance, _ = Table.objects.get_or_create(times=time_instance, table=table)
 
-        existing_reservation = Reservation.objects.filter(
+        existing_reservations_count = Reservation.objects.filter(
             year=year_instance,
             month=month_instance,
             day=day_instance,
             time=time_instance,
-            table=table_instance
-        ).exists()
+        ).count()
 
-        if existing_reservation:
+        max_reservations = 3
+        if existing_reservations_count < max_reservations:
+            table_instance, _ = Table.objects.get_or_create(times=time_instance, table=str(existing_reservations_count+1))
 
+        else:
             request.session['booked'] = True
             return redirect('reservation')
 
@@ -58,5 +58,6 @@ def create_reservation(request):
             time=time_instance,
             table=table_instance
         )
+
         request.session['reserved'] = True
         return redirect('reservation')

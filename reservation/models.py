@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Year(models.Model):
@@ -41,6 +42,7 @@ class Table(models.Model):
 
 
 class Reservation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,)
     year = models.ForeignKey(Year, on_delete=models.CASCADE)
     month = models.ForeignKey(Month, on_delete=models.CASCADE)
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
@@ -48,4 +50,4 @@ class Reservation(models.Model):
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.year} - {self.month} - {self.day} - {self.time} - {self.table}"
+        return f"DATE: {self.day} - {self.month} -{self.year} - TIME: {self.time} - TABLE: {self.table} - USER: {self.user}"

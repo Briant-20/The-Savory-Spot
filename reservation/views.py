@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import Year, Month, Day, Time, Table, Reservation
+from .models import Year, Month, Day, Time, Table, Reservation, User
 from django.views import View
 import thesavoryspot.settings as django_settings
 from django.contrib.auth.decorators import login_required
+user = User
+
 
 class ReservationView(View):
     template_name = 'reservation.html'
@@ -23,7 +25,7 @@ class ReservationView(View):
         }
         return render(request, self.template_name, context)
 
-@login_required
+
 def create_reservation(request):
     if request.method == 'POST':
         year = request.POST.get('year')
@@ -56,7 +58,8 @@ def create_reservation(request):
             month=month_instance,
             day=day_instance,
             time=time_instance,
-            table=table_instance
+            table=table_instance,
+            user=request.user
         )
 
         request.session['reserved'] = True

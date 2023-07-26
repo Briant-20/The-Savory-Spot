@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Year, Month, Day, Time, Table, Reservation, User
+from .models import Year, Month, Day, Time, Table, Reservation
 from django.views import View
 import thesavoryspot.settings as django_settings
-from django.contrib.auth.decorators import login_required
-user = User
+import smtplib
+import ssl
+from email.message import EmailMessage
+import os
 
 
 class ReservationView(View):
@@ -61,6 +63,32 @@ def create_reservation(request):
             table=table_instance,
             user=request.user
         )
+
+        subject = 'Reservation'
+        body = f"""Hello {request.user}
+
+Thank you for your recent booking.
+Your table is reserved for {day_instance}/{month_instance}/{year_instance} at {time_instance}
+
+Kind regards,
+The Savory Spot
+        """
+
+        email_sender = os.environ.get("email_sender")
+        email_password = os.environ.get("email_password")
+        email_receiver = request.user.email
+
+        em = EmailMessage()
+        em['From'] = email_sender
+        em['To'] = email_receiver
+        em['Subject'] = subject
+        em.set_content(body)
+
+        context = ssl.create_default_context()
+
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+            smtp.login(email_sender, email_password)
+            smtp.sendmail(email_sender, email_receiver, em.as_string())
 
         request.session['reserved'] = True
         return redirect('reservation')

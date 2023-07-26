@@ -64,32 +64,3 @@ $('#month').change(function () {
     }
 });
 });
-
-let sendContactMail = (contactForm) =>{
-    emailjs.send("service_nmhk4y9","template_nzgxl0j",{
-    from_name: contactForm.Name.value,
-    to_name: "Brian",
-    message: contactForm.message.value,
-    to_email: "brianteahan04@gmail.com",
-});}
-
-
-let sendReservationMail = (contactForm) =>{
-    let userDetailsScript = document.getElementById('user-details');
-    let userDetails = JSON.parse(userDetailsScript.textContent);
-    let userEmail = userDetails.email;
-    let username = userDetails.username;
-
-    let year = contactForm.year.value;
-    let month = contactForm.month.value;
-    let day = contactForm.day.value;
-    let time = contactForm.time.value;
-    let reservation = `${year}-${month}-${day}`;
-    messageText = `Your reservation for '${reservation}' at ${time} has been booked.`
-
-    emailjs.send("service_nmhk4y9","template_nzgxl0j",{
-    from_name: "The Savory Spot",
-    to_name: username,
-    message: messageText,
-    to_email: userEmail,
-});}

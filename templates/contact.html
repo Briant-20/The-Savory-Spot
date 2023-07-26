@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<form onsubmit="return sendContactMail(this);">
+<form method="post" action="{% url 'contact' %}">
+  {% csrf_token %}
     <input type="text" name="Name" class="form-control" id="name" placeholder="Name" required/>
     <textarea rows="5" name="Message" class="form-control" id="message" placeholder="Message" required></textarea>
     <button type="submit" class="btn btn-secondary center-block">Send</button>

@@ -28,8 +28,8 @@ $(document).ready(function() {
   $('#searchInput').on('input', function() {
     var searchTerm = $(this).val().toLowerCase();
     $('.category-items.items').each(function() {
-      var itemName = $(this).find('.item:first-child').text().toLowerCase();
-      var itemMatches = itemName.indexOf(searchTerm) > -1;
+      let itemName = $(this).find('.item:first-child').text().toLowerCase();
+      let itemMatches = itemName.indexOf(searchTerm) > -1;
       $(this).toggle(searchTerm === '' ? false : itemMatches);
     });
   });

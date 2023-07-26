@@ -17,7 +17,7 @@ class ContactView(View):
             name = request.POST.get('Name')
             message = request.POST.get('Message')
             subject = 'Contact'
-            body = f"""From {name}
+            body = f"""From {name}, username:{request.user}
 
             {message}
                 """

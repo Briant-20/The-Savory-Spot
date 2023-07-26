@@ -41,8 +41,8 @@
         <select name="time" id="time" required>
             <option value="">Select a time</option>
             {% for hour in timeRange %}
-                <option value="{{ hour }}:00 pm">{{ hour }}:00 pm</option>
-                <option value="{{ hour }}:30 pm">{{ hour }}:30 pm</option>
+                <option value="{{ hour }}:00">{{ hour }}:00</option>
+                <option value="{{ hour }}:30">{{ hour }}:30</option>
             {% endfor %}
         </select><br>
 
@@ -58,5 +58,11 @@
     Sorry this time is fully booked out
 </div>
 {%endif%}
+<h1>Your Reservations:</h1>
+        <ul>
+            {% for reservation in user_reservations %}
+                <li>{{ reservation.day }}/{{ reservation.month }}/{{ reservation.year }} at {{ reservation.time }}</li>
+            {% endfor %}
+        </ul>
 {% endif %}
 {% endblock %}

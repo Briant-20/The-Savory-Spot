@@ -17,13 +17,16 @@ class ReservationView(View):
         request.session.pop('reserved', None)
         booked = request.session.get('booked', False)
         request.session.pop('booked', None)
-
+        user_reservations = ""
+        if request.user.is_authenticated:
+            user_reservations = Reservation.objects.filter(user=request.user)
         context = {
             'current_year': current_year,
             'monthRange': range(12),
             'timeRange': [16, 17, 18, 19, 20],
             'reserved': reservation,
             'booked': booked,
+            'user_reservations': user_reservations,
         }
         return render(request, self.template_name, context)
 

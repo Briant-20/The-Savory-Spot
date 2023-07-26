@@ -46,7 +46,7 @@
             {% endfor %}
         </select><br>
 
-        <button type="submit">Create Reservation</button>
+        <button type="submit" name="submit_reservation">Create Reservation</button>
     </form>
 {%if reserved%}
 <div class="alert alert-success" role="alert">
@@ -61,8 +61,17 @@
 <h1>Your Reservations:</h1>
         <ul>
             {% for reservation in user_reservations %}
-                <li>{{ reservation.day }}/{{ reservation.month }}/{{ reservation.year }} at {{ reservation.time }}</li>
-            {% endfor %}
+            <li>
+                Date: {{ reservation.day }}/{{ reservation.month }}/{{ reservation.year }},
+                Time: {{ reservation.time }},
+                Table: {{ reservation.table }}
+                <form method="post" action="{% url 'reservation' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete_reservation" value="{{ reservation.id }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
         </ul>
 {% endif %}
 {% endblock %}

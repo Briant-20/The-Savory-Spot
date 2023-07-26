@@ -20,6 +20,7 @@ class ReservationView(View):
         user_reservations = ""
         if request.user.is_authenticated:
             user_reservations = Reservation.objects.filter(user=request.user)
+
         context = {
             'current_year': current_year,
             'monthRange': range(12),
@@ -31,7 +32,7 @@ class ReservationView(View):
         return render(request, self.template_name, context)
 
     def post(self, request):
-        if request.method == 'POST':
+        if 'submit_reservation' in request.POST:
             year = request.POST.get('year')
             month = request.POST.get('month')
             day = request.POST.get('day')
@@ -94,3 +95,14 @@ The Savory Spot
 
             request.session['reserved'] = True
             return redirect('reservation')
+
+        if 'delete_reservation' in request.POST:
+            reservation_instance = request.POST.get('delete_reservation')
+            try:
+                reservation = Reservation.objects.get(id=reservation_instance)
+                if request.user == reservation.user:
+                    reservation.delete()
+            except Reservation.DoesNotExist:
+                pass
+
+        return redirect('reservation')

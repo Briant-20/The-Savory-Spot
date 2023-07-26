@@ -14,7 +14,7 @@
             "username": "{{ user.username }}"
         }
     </script>
-    <form method="post" action="{% url 'create_reservation' %}">
+    <form method="post" action="{% url 'reservation' %}">
         {% csrf_token %}
         <label for="year">Year:</label>
         <select name="year" id="year" required>

@@ -23,5 +23,4 @@ urlpatterns = [
     path("accounts/signup/", include("allauth.urls")),
     path("", include("contact.urls"), name="contact-urls"),
     path("", include("reservation.urls")),
-
 ]

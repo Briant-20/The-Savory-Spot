@@ -32,6 +32,9 @@ class ReservationView(View):
         return render(request, self.template_name, context)
 
     def post(self, request):
+        email_sender = os.environ.get("email_sender")
+        email_password = os.environ.get("email_password")
+        email_receiver = request.user.email
         if 'submit_reservation' in request.POST:
             year = request.POST.get('year')
             month = request.POST.get('month')
@@ -77,10 +80,6 @@ Kind regards,
 The Savory Spot
             """
 
-            email_sender = os.environ.get("email_sender")
-            email_password = os.environ.get("email_password")
-            email_receiver = request.user.email
-
             em = EmailMessage()
             em['From'] = email_sender
             em['To'] = email_receiver
@@ -102,6 +101,27 @@ The Savory Spot
                 reservation = Reservation.objects.get(id=reservation_instance)
                 if request.user == reservation.user:
                     reservation.delete()
+                    subject = 'Reservation'
+                    body = f"""Hello {request.user}
+
+Your reservation has been canceled.
+If you did not perform this action please send us an email from our contact page.
+
+Kind regards,
+The Savory Spot"""
+
+                    em = EmailMessage()
+                    em['From'] = email_sender
+                    em['To'] = email_receiver
+                    em['Subject'] = subject
+                    em.set_content(body)
+
+                    context = ssl.create_default_context()
+
+                    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+                        smtp.login(email_sender, email_password)
+                        smtp.sendmail(email_sender, email_receiver, em.as_string())
+
             except Reservation.DoesNotExist:
                 pass
 

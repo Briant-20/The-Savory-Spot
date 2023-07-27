@@ -1,11 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-{% if not user.is_authenticated %}
-<H1>Please log in to book a reservation</H1>
-{% endif %}
 {% if user.is_authenticated %}
-    <h2>Create New Reservation:</h2>
-    <form method="post" action="{% url 'reservation' %}">
+    <h2>Edit Reservation:</h2>
+    <form method="post" action="{% url 'edit_reservation' %}">
         {% csrf_token %}
         <label for="year">Year:</label>
         <select name="year" id="year" required>
@@ -36,12 +33,11 @@
                 <option value="{{ hour }}:30">{{ hour }}:30</option>
             {% endfor %}
         </select><br>
-
-        <button type="submit" name="submit_reservation">Create Reservation</button>
+        <button type="submit" name="edit_reservation">Edit Reservation</button>
     </form>
 {%if reserved%}
 <div class="alert alert-success" role="alert">
-    Your reservation has been booked
+    Your reservation has been updated
 </div>
 {%endif%}
 {%if booked%}
@@ -49,25 +45,5 @@
     Sorry this time is fully booked out
 </div>
 {%endif%}
-<h1>Your Reservations:</h1>
-        <ul>
-            {% for reservation in user_reservations %}
-            <li>
-                Date: {{ reservation.day }}/{{ reservation.month }}/{{ reservation.year }},
-                Time: {{ reservation.time }},
-                Table: {{ reservation.table }}
-                <form method="post" action="{% url 'reservation' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="delete_reservation" value="{{ reservation.id }}">
-                    <button type="submit">Delete</button>
-                </form>
-                <form method="post" action="{% url 'edit_reservation' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
-                    <button type="submit">Edit</button>
-                </form>
-            </li>
-        {% endfor %}
-        </ul>
 {% endif %}
 {% endblock %}

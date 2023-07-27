@@ -29,6 +29,17 @@ def get_context(request):
     return context
 
 
+def check_existing_reservations(year_instance,month_instance,day_instance,time_instance,table_instance):
+    existing_reservation = Reservation.objects.filter(
+        year=year_instance,
+        month=month_instance,
+        day=day_instance,
+        time=time_instance,
+        table=table_instance,
+    )
+    return existing_reservation
+
+
 def create(request):
     email_sender = os.environ.get("email_sender")
     email_password = os.environ.get("email_password")
@@ -57,6 +68,11 @@ def create(request):
     else:
         request.session['booked'] = True
         return redirect('reservation')
+    for i in range(max_reservations):
+        existing_reservation = check_existing_reservations(year_instance, month_instance,
+                                                           day_instance, time_instance, table_instance)
+        if existing_reservation:
+            table_instance, _ = Table.objects.get_or_create(times=time_instance, table=str(i+1))
 
     Reservation.objects.create(
         year=year_instance,

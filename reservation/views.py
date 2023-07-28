@@ -10,6 +10,7 @@ import os
 
 def get_context(request):
     current_year = django_settings.CURRENT_YEAR
+    current_month = django_settings.CURRENT_MONTH
     reservation = request.session.get('reserved', False)
     request.session.pop('reserved', None)
     booked = request.session.get('booked', False)
@@ -20,8 +21,9 @@ def get_context(request):
 
     context = {
         'current_year': current_year,
-        'monthRange': range(12),
-        'timeRange': [16, 17, 18, 19, 20],
+        'current_month_range': range(current_month, 13),
+        'month_range': range(12),
+        'time_range': [16, 17, 18, 19, 20],
         'reserved': reservation,
         'booked': booked,
         'user_reservations': user_reservations,
@@ -67,7 +69,6 @@ def create(request):
 
     else:
         request.session['booked'] = True
-        redirect('edit_reservation')
         return False
 
     for i in range(max_reservations):
@@ -107,7 +108,6 @@ The Savory Spot"""
             smtp.sendmail(email_sender, email_receiver, em.as_string())
 
     request.session['reserved'] = True
-    redirect('reservation')
     return True
 
 

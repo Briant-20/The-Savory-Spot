@@ -151,3 +151,4 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CURRENT_YEAR = datetime.now().year
+CURRENT_MONTH = datetime.now().month

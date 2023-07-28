@@ -23,7 +23,7 @@ for (let i = 0; i < categoryTitles.length; i++) {
 }
 
 $(document).ready(function () {
-    const daysPerMonth = {
+    let daysPerMonth = {
         1: 31,
         2: 28,
         3: 31,
@@ -53,7 +53,7 @@ function getDayWithPostfix(day) {
         }
 }
 
-$('#month').change(function () {
+$('.month').change(function () {
     let selectedMonth = $(this).val();
     let days = daysPerMonth[selectedMonth];
     let daySelector = $('#day');
@@ -64,3 +64,19 @@ $('#month').change(function () {
     }
 });
 });
+
+$('#year').change(function () {
+    let selectedYear = $(this).val();
+    let current_year = $('#current_year').val();
+    let current_month = document.getElementById('current_month_container');
+    let month = document.getElementById('month_container');
+    if (selectedYear === current_year) {
+        current_month.style.display = 'block';
+        month.style.display = 'none';
+    } 
+    else{
+        current_month.style.display = 'none';
+        month.style.display = 'block';
+    }
+});
+

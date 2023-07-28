@@ -9,20 +9,29 @@
         {% csrf_token %}
         <label for="year">Year:</label>
         <select name="year" id="year" required>
-            <option value="{{ current_year }}">{{ current_year }}</option>
+            <option value="{{ current_year }}" id="current_year">{{ current_year }}</option>
             {% for i in "123" %}
                 <option value="{{ current_year|add:forloop.counter }}">{{ current_year|add:forloop.counter }}</option>
             {% endfor %}
         </select><br>
-
-        <label for="month">Month:</label>
-        <select name="month" id="month" required>
+    <div id="current_month_container">
+        <label for="current_month">Month:</label>
+        <select name="current_month" class="month" required>
             <option value="">Select month</option>
-            {% for i in monthRange %}
+            {% for month in current_month_range %}
+                <option value="{{ month }}">{{ month }}</option>
+            {% endfor %}
+        </select><br>
+    </div>
+    <div id="month_container" style="display: none;">
+        <label for="month">Month:</label>
+        <select name="month" class="month" required>
+            <option value="">Select month</option>
+            {% for month in month_range %}
                 <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
             {% endfor %}
         </select><br>
-
+    </div>
         <label for="day">Date:</label>
         <select name="day" id="day" required>
             <option value="">Select day</option>
@@ -31,7 +40,7 @@
         <label for="time">Time:</label>
         <select name="time" id="time" required>
             <option value="">Select a time</option>
-            {% for hour in timeRange %}
+            {% for hour in time_range %}
                 <option value="{{ hour }}:00">{{ hour }}:00</option>
                 <option value="{{ hour }}:30">{{ hour }}:30</option>
             {% endfor %}

@@ -67,7 +67,9 @@ def create(request):
 
     else:
         request.session['booked'] = True
-        return redirect('reservation')
+        redirect('edit_reservation')
+        return False
+
     for i in range(max_reservations):
         existing_reservation = check_existing_reservations(year_instance, month_instance,
                                                            day_instance, time_instance, table_instance)
@@ -104,7 +106,8 @@ The Savory Spot"""
         #smtp.sendmail(email_sender, email_receiver, em.as_string())
 
     request.session['reserved'] = True
-    return redirect('reservation')
+    redirect('reservation')
+    return True
 
 
 def delete(request, id):
@@ -169,7 +172,10 @@ class EditReservationView(View):
             request.session['reservation_id'] = id
         if 'edit_reservation' in request.POST:
             id = request.session.get('reservation_id')
-            create(request)
-            delete(request, id)
-            return redirect('reservation')
+            created = create(request)
+            if created:
+                delete(request, id)
+                return redirect('reservation')
+            else:
+                return redirect('edit_reservation')
         return redirect('edit_reservation')

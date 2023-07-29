@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-from datetime import datetime
 if os.path.isfile('env.py'):
     import env
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -150,6 +149,4 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CURRENT_YEAR = datetime.now().year
-CURRENT_MONTH = datetime.now().month
-CURRENT_DAY = datetime.now().day
+

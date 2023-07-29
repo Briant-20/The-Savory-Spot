@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Year, Month, Day, Time, Table, Reservation
 from django.views import View
-import thesavoryspot.settings as django_settings
+from datetime import datetime
 import smtplib
 import ssl
 from email.message import EmailMessage
@@ -9,9 +9,11 @@ import os
 
 
 def get_context(request):
-    current_year = django_settings.CURRENT_YEAR
-    current_month = django_settings.CURRENT_MONTH
-    current_day = django_settings.CURRENT_DAY
+    current_year = datetime.now().year
+    current_month = datetime.now().month
+    current_day = datetime.now().day
+    current_hour = datetime.now().hour
+    current_minute = datetime.now().minute
     reservation = request.session.get('reserved', False)
     request.session.pop('reserved', None)
     booked = request.session.get('booked', False)
@@ -27,6 +29,9 @@ def get_context(request):
         'month_range': range(12),
         'current_day': current_day,
         'time_range': range(16, 21),
+        'current_hour': current_hour,
+        'current_hour_range': range(current_hour, 21),
+        'current_minute': current_minute,
         'reserved': reservation,
         'booked': booked,
         'user_reservations': user_reservations,
@@ -55,7 +60,8 @@ def create(request):
         month = request.POST.get('current_month')
     day = request.POST.get('day')
     time = request.POST.get('time')
-
+    if time == "":
+        time = request.POST.get('current_time')
     year_instance, _ = Year.objects.get_or_create(year=year)
     month_instance, _ = Month.objects.get_or_create(years=year_instance, month=month)
     day_instance, _ = Day.objects.get_or_create(months=month_instance, day=day)

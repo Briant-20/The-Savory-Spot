@@ -33,11 +33,30 @@
         </div>
     
         <div current_value ="{{current_day}}" id="current_day_value" style="display: none;"></div>
-            <label for="day">Date:</label>
-            <select name="day" id="day" required>
-                <option value="" >Select day</option>
-            </select><br>
+        <label for="day">Date:</label>
+        <select name="day" id="day" required>
+            <option value="" >Select day</option>
+        </select><br>
 
+        <div id="current_time_container" style="display: none;">
+        <label for="current_time">Time:</label>
+        <select name="current_time" id="current_time">
+            <option value="">Select a time</option>
+            {% for hour in current_hour_range %}
+                {% if not hour == current_hour %}  
+                    <option value="{{ hour }}:00">{{ hour }}:00</option>
+                {%endif%}
+                {% if hour == current_hour %}
+                    {% if not current_minute > 25%}
+                        <option value="{{ hour }}:30">{{ hour }}:30</option>
+                    {%endif%}
+                {%else%}
+                    <option value="{{ hour }}:30">{{ hour }}:30</option>
+                {%endif%}
+            {% endfor %}
+        </select><br>
+    </div>
+    <div id="time_container" >
         <label for="time">Time:</label>
         <select name="time" id="time" required>
             <option value="">Select a time</option>
@@ -46,6 +65,7 @@
                 <option value="{{ hour }}:30">{{ hour }}:30</option>
             {% endfor %}
         </select><br>
+    </div>
         <button type="submit" name="edit_reservation">Edit Reservation</button>
     </form>
 {%if reserved%}

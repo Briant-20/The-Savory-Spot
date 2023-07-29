@@ -16,7 +16,7 @@
         </select><br>
     <div id="current_month_container">
         <label for="current_month">Month:</label>
-        <select name="current_month" class="month" required>
+        <select name="current_month" class="month" id="current_month" required>
             <option value="">Select month</option>
             {% for month in current_month_range %}
                 <option value="{{ month }}">{{ month }}</option>
@@ -25,7 +25,7 @@
     </div>
     <div id="month_container" style="display: none;">
         <label for="month">Month:</label>
-        <select name="month" class="month" required>
+        <select name="month" class="month" id="month">
             <option value="">Select month</option>
             {% for month in month_range %}
                 <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>

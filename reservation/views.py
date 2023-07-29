@@ -48,6 +48,8 @@ def create(request):
     email_receiver = request.user.email
     year = request.POST.get('year')
     month = request.POST.get('month')
+    if month == "":
+        month = request.POST.get('current_month')
     day = request.POST.get('day')
     time = request.POST.get('time')
 
@@ -102,10 +104,10 @@ The Savory Spot"""
 
     context = ssl.create_default_context()
 
-    if not email_receiver == '':
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-            smtp.login(email_sender, email_password)
-            smtp.sendmail(email_sender, email_receiver, em.as_string())
+    #if not email_receiver == '':
+        #with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+            #smtp.login(email_sender, email_password)
+            #smtp.sendmail(email_sender, email_receiver, em.as_string())
 
     request.session['reserved'] = True
     return True
@@ -137,10 +139,10 @@ The Savory Spot"""
 
             context = ssl.create_default_context()
 
-            if not email_receiver == '':
-                with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-                    smtp.login(email_sender, email_password)
-                    smtp.sendmail(email_sender, email_receiver, em.as_string())
+            #if not email_receiver == '':
+                #with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+                    #smtp.login(email_sender, email_password)
+                    #smtp.sendmail(email_sender, email_receiver, em.as_string())
 
     except Reservation.DoesNotExist:
         pass

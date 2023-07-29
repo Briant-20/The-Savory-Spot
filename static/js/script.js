@@ -68,15 +68,23 @@ $('.month').change(function () {
 $('#year').change(function () {
     let selectedYear = $(this).val();
     let current_year = $('#current_year').val();
-    let current_month = document.getElementById('current_month_container');
-    let month = document.getElementById('month_container');
+    let current_month_container = document.getElementById('current_month_container');
+    let month_container = document.getElementById('month_container');
+    let current_month = document.getElementById('current_month');
+    let month = document.getElementById('month');
+
+
     if (selectedYear === current_year) {
-        current_month.style.display = 'block';
-        month.style.display = 'none';
+        current_month_container.style.display = 'block';
+        month_container.style.display = 'none';
+        month.removeAttribute("required");
+        current_month.setAttribute("required", "required");
     } 
     else{
-        current_month.style.display = 'none';
-        month.style.display = 'block';
+        current_month_container.style.display = 'none';
+        month_container.style.display = 'block';
+        month.setAttribute("required", "required");
+        current_month.removeAttribute("required");
     }
 });
 

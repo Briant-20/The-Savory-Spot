@@ -11,6 +11,7 @@ import os
 def get_context(request):
     current_year = django_settings.CURRENT_YEAR
     current_month = django_settings.CURRENT_MONTH
+    current_day = django_settings.CURRENT_DAY
     reservation = request.session.get('reserved', False)
     request.session.pop('reserved', None)
     booked = request.session.get('booked', False)
@@ -21,9 +22,11 @@ def get_context(request):
 
     context = {
         'current_year': current_year,
-        'current_month_range': range(current_month, 13),
+        'current_month_range': range(current_month+1, 13),
+        'current_month': current_month,
         'month_range': range(12),
-        'time_range': [16, 17, 18, 19, 20],
+        'current_day': current_day,
+        'time_range': range(16, 21),
         'reserved': reservation,
         'booked': booked,
         'user_reservations': user_reservations,

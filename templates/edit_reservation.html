@@ -16,6 +16,7 @@
             <label for="current_month">Month:</label>
             <select name="current_month" class="month" id="current_month" required>
                 <option value="">Select month</option>
+                <option value="{{current_month}}" id="current_month_value">{{current_month}}</option>
                 {% for month in current_month_range %}
                     <option value="{{ month }}">{{ month }}</option>
                 {% endfor %}
@@ -30,11 +31,12 @@
                 {% endfor %}
             </select><br>
         </div>
-
-        <label for="day">Date:</label>
-        <select name="day" id="day" required>
-            <option value="">Select day</option>
-        </select><br>
+    
+        <div current_value ="{{current_day}}" id="current_day_value" style="display: none;"></div>
+            <label for="day">Date:</label>
+            <select name="day" id="day" required>
+                <option value="" >Select day</option>
+            </select><br>
 
         <label for="time">Time:</label>
         <select name="time" id="time" required>

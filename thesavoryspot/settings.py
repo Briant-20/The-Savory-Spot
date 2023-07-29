@@ -152,3 +152,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CURRENT_YEAR = datetime.now().year
 CURRENT_MONTH = datetime.now().month
+CURRENT_DAY = datetime.now().day

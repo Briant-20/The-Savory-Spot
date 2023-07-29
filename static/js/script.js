@@ -55,10 +55,19 @@ function getDayWithPostfix(day) {
 
 $('.month').change(function () {
     let selectedMonth = $(this).val();
+    let selectedYear = document.getElementById("year").value;
+    let current_year = document.getElementById('current_year').value;
     let days = daysPerMonth[selectedMonth];
+    start_day = 1;
+    if (selectedYear === current_year){
+        if ( selectedMonth === document.getElementById('current_month_value').value){
+            start_day = document.getElementById('current_day_value').getAttribute("current_value");
+            console.log(start_day)
+        }
+    }
     let daySelector = $('#day');
     daySelector.empty();
-    for (let day = 1; day <= days; day++) {
+    for (let day = start_day; day <= days; day++) {
         date = getDayWithPostfix(day)
         daySelector.append(`<option value="${date}">${date}</option>`);
     }

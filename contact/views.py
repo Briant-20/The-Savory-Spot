@@ -10,7 +10,7 @@ class ContactView(View):
     template_name = 'contact.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        return render(request, self.template_name, {"sent": False})
 
     def post(self, request):
         if request.method == 'POST':
@@ -36,4 +36,6 @@ class ContactView(View):
             with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
                 smtp.login(email_sender, email_password)
                 smtp.sendmail(email_sender, email_receiver, em.as_string())
-            return render(request, self.template_name)
+            return render(request, self.template_name, {"sent": True})
+        else:
+            return render(request, self.template_name, {"sent": False})

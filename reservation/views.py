@@ -14,6 +14,9 @@ def get_context(request):
     current_day = datetime.now().day
     current_hour = datetime.now().hour
     current_minute = datetime.now().minute
+    if current_hour < 16:
+        current_hour = 15
+        current_minute = 30
     reservation = request.session.get('reserved', False)
     request.session.pop('reserved', None)
     booked = request.session.get('booked', False)

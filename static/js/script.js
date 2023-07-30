@@ -22,6 +22,21 @@ for (let i = 0; i < categoryTitles.length; i++) {
     categoryTitle.addEventListener("click", display_category(categoryTitle));
 }
 
+function getDayWithPostfix(day) {
+    if (day >= 11 && day <= 13) {
+            return day + 'th';}
+    switch (day % 10) {
+        case 1:
+            return day + 'st';
+        case 2:
+            return day + 'nd';
+        case 3:
+            return day + 'rd';
+        default:
+            return day + 'th';
+        }
+}
+
 $(document).ready(function () {
     let daysPerMonth = {
         1: 31,
@@ -37,8 +52,6 @@ $(document).ready(function () {
         11: 30,
         12: 31
     }
-
-
 
 $('.month').change(function () {
     let selectedMonth = $(this).val();
@@ -85,21 +98,6 @@ $('#year').change(function () {
     }
 });
 
-function getDayWithPostfix(day) {
-    if (day >= 11 && day <= 13) {
-            return day + 'th';}
-    switch (day % 10) {
-        case 1:
-            return day + 'st';
-        case 2:
-            return day + 'nd';
-        case 3:
-            return day + 'rd';
-        default:
-            return day + 'th';
-        }
-}
-
 $('#day').change(function () {
     let selectedDay = $(this).val();
     let currentDay = document.getElementById('current_day_value').getAttribute("current_value");
@@ -112,22 +110,19 @@ $('#day').change(function () {
     let timeContainer = document.getElementById("time_container")
     let currentTime = document.getElementById("current_time")
     let time = document.getElementById("time")
-    if (selectedYear === currentYear){
-        if ( selectedMonth === currentMonth){
-            if (selectedDay === currentDay){
-                currentTimeContainer.style.display = "block";
-                timeContainer.style.display = "none"
-                time.removeAttribute("required");
-                currentTime.setAttribute("required", "required");
-                time.value = ""
-            }
-            else{
-                currentTimeContainer.style.display = "none";
-                timeContainer.style.display = "block"
-                currentTime.removeAttribute("required");
-                time.setAttribute("required", "required");
-                currentTime.value = ""
-            }
-        }
+    if (selectedYear === currentYear && selectedMonth === currentMonth && selectedDay === currentDay){
+        console.log(selectedYear)
+        currentTimeContainer.style.display = "block";
+        timeContainer.style.display = "none"
+        time.removeAttribute("required");
+        currentTime.setAttribute("required", "required");
+        time.value = ""
+    }
+    else{
+        currentTimeContainer.style.display = "none";
+        timeContainer.style.display = "block"
+        currentTime.removeAttribute("required");
+        time.setAttribute("required", "required");
+        currentTime.value = ""
     }
 });

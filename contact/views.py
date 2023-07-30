@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 import smtplib
 import ssl
@@ -10,7 +10,9 @@ class ContactView(View):
     template_name = 'contact.html'
 
     def get(self, request):
-        return render(request, self.template_name, {"sent": False})
+        sent = request.session.get('sent', False)
+        request.session.pop('sent', None)
+        return render(request, self.template_name, {"sent": sent})
 
     def post(self, request):
         if request.method == 'POST':
@@ -36,6 +38,7 @@ class ContactView(View):
             with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
                 smtp.login(email_sender, email_password)
                 smtp.sendmail(email_sender, email_receiver, em.as_string())
-            return render(request, self.template_name, {"sent": True})
+            request.session['sent'] = True
+            return redirect("contact")
         else:
-            return render(request, self.template_name, {"sent": False})
+            return redirect("contact")

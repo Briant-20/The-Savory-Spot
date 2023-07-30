@@ -43,7 +43,11 @@
         <div id="current_time_container" style="display: none;">
         <label for="current_time">Time:</label>
         <select name="current_time" id="current_time">
+            {% if current_time > 45 %}
+            <option value="">Sorry we are not taking anymore bookings for today</option>
+            {%else%}
             <option value="">Select a time</option>
+            {%endif%}
             {% for hour in current_hour_range %}
                 {% if not hour == current_hour %}  
                     <option value="{{ hour }}:00">{{ hour }}:00</option>
@@ -70,14 +74,19 @@
     </div>
         <button type="submit" name="submit_reservation">Create Reservation</button>
     </form>
-{%if reserved%}
+{% if reserved %}
 <div class="alert alert-success" role="alert">
     Your reservation has been booked
 </div>
 {%endif%}
-{%if booked%}
+{% if booked %}
 <div class="alert alert-danger" role="alert">
     Sorry this time is fully booked out
+</div>
+{%endif%}
+{% if deleted %}
+<div class="alert alert-success" role="alert">
+    Your reservation has been deleted
 </div>
 {%endif%}
 <h1>Your Reservations:</h1>

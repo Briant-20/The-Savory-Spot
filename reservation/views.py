@@ -17,10 +17,13 @@ def get_context(request):
     if current_hour < 16:
         current_hour = 15
         current_minute = 30
+    current_time = current_hour + current_minute
     reservation = request.session.get('reserved', False)
     request.session.pop('reserved', None)
     booked = request.session.get('booked', False)
     request.session.pop('booked', None)
+    deleted = request.session.get('deleted', False)
+    request.session.pop('deleted', None)
     user_reservations = ""
     if request.user.is_authenticated:
         user_reservations = Reservation.objects.filter(user=request.user)
@@ -35,8 +38,10 @@ def get_context(request):
         'current_hour': current_hour,
         'current_hour_range': range(current_hour, 21),
         'current_minute': current_minute,
+        'current_time': current_time,
         'reserved': reservation,
         'booked': booked,
+        'deleted': deleted,
         'user_reservations': user_reservations,
     }
     return context
@@ -116,16 +121,16 @@ The Savory Spot"""
 
     context = ssl.create_default_context()
 
-    #if not email_receiver == '':
-        #with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-            #smtp.login(email_sender, email_password)
-            #smtp.sendmail(email_sender, email_receiver, em.as_string())
+    if not email_receiver == '':
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+            smtp.login(email_sender, email_password)
+            smtp.sendmail(email_sender, email_receiver, em.as_string())
 
     request.session['reserved'] = True
     return True
 
 
-def delete(request, id):
+def delete(request, id, email):
     email_sender = os.environ.get("email_sender")
     email_password = os.environ.get("email_password")
     email_receiver = request.user.email
@@ -150,11 +155,12 @@ The Savory Spot"""
             em.set_content(body)
 
             context = ssl.create_default_context()
-
-            #if not email_receiver == '':
-                #with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-                    #smtp.login(email_sender, email_password)
-                    #smtp.sendmail(email_sender, email_receiver, em.as_string())
+            if email:
+                if not email_receiver == '':
+                    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+                        smtp.login(email_sender, email_password)
+                        smtp.sendmail(email_sender, email_receiver, em.as_string())
+                request.session['deleted'] = True
 
     except Reservation.DoesNotExist:
         pass
@@ -171,7 +177,7 @@ class ReservationView(View):
         if 'submit_reservation' in request.POST:
             create(request)
         if 'delete_reservation' in request.POST:
-            delete(request, request.POST.get('delete_reservation'))
+            delete(request, request.POST.get('delete_reservation'), True)
         return redirect('reservation')
 
 
@@ -190,7 +196,7 @@ class EditReservationView(View):
             id = request.session.get('reservation_id')
             created = create(request)
             if created:
-                delete(request, id)
+                delete(request, id, False)
                 return redirect('reservation')
             else:
                 return redirect('edit_reservation')

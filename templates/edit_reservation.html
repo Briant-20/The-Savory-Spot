@@ -1,82 +1,104 @@
 {% extends "base.html" %}
 {% block content %}
 {% if user.is_authenticated %}
-    <h2>Edit Reservation:</h2>
-    <form method="post" action="{% url 'edit_reservation' %}">
-        {% csrf_token %}
-        <label for="year">Year:</label>
-        <select name="year" id="year" required>
-            <option value="{{ current_year }}" id="current_year">{{ current_year }}</option>
-            {% for i in "123" %}
-                <option value="{{ current_year|add:forloop.counter }}">{{ current_year|add:forloop.counter }}</option>
-            {% endfor %}
-        </select><br>
-
-        <div id="current_month_container">
-            <label for="current_month">Month:</label>
-            <select name="current_month" class="month" id="current_month" required>
-                <option value="">Select month</option>
-                <option value="{{current_month}}" id="current_month_value">{{current_month}}</option>
-                {% for month in current_month_range %}
-                    <option value="{{ month }}">{{ month }}</option>
-                {% endfor %}
-            </select><br>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h2>Edit Reservation:</h2>
+                <form method="post" action="{% url 'edit_reservation' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="year">Year:</label>
+                        <select name="year" id="year" class="form-control" required>
+                            <option value="{{ current_year }}" id="current_year">{{ current_year }}</option>
+                            {% for i in "123" %}
+                                <option value="{{ current_year|add:forloop.counter }}">{{ current_year|add:forloop.counter }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group" id="current_month_container">
+                        <label for="current_month">Month:</label>
+                        <select name="current_month" class="form-control month" id="current_month" required>
+                            <option value="">Select month</option>
+                            <option value="{{current_month}}" id="current_month_value">{{current_month}}</option>
+                            {% for month in current_month_range %}
+                                <option value="{{ month }}">{{ month }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group" id="month_container" style="display: none;">
+                        <label for="month">Month:</label>
+                        <select name="month" class="form-control month" id="month">
+                            <option value="">Select month</option>
+                            {% for month in month_range %}
+                                <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div current_value="{{current_day}}" id="current_day_value" style="display: none;"></div>
+                    <div class="form-group">
+                        <label for="day">Date:</label>
+                        <select name="day" id="day" class="form-control" required>
+                            <option value="">Select day</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="current_time_container" style="display: none;">
+                        <label for="current_time">Time:</label>
+                        <select name="current_time" id="current_time" class="form-control">
+                            {% if current_hour > 19 %}
+                                {% if current_time > 45 %}
+                                    <option value="">Sorry, we are not taking any more bookings for today</option>
+                                {% endif %}
+                            {% else %} 
+                                <option value="">Select a time</option>
+                            {% endif %}
+                            {% for hour in current_hour_range %}
+                                {% if not hour == current_hour %}  
+                                    <option value="{{ hour }}:00">{{ hour }}:00</option>
+                                {%endif%}
+                                {% if hour == current_hour %}
+                                    {% if not current_minute > 25%}
+                                        <option value="{{ hour }}:30">{{ hour }}:30</option>
+                                    {%endif%}
+                                {%else%}
+                                    <option value="{{ hour }}:30">{{ hour }}:30</option>
+                                {%endif%}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group" id="time_container">
+                        <label for="time">Time:</label>
+                        <select name="time" id="time" class="form-control" required>
+                            <option value="">Select a time</option>
+                            {% for hour in time_range %}
+                                <option value="{{ hour }}:00">{{ hour }}:00</option>
+                                <option value="{{ hour }}:30">{{ hour }}:30</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" name="edit_reservation" class="btn btn-primary">Create Reservation</button>
+                </form>
+            </div>
         </div>
-        <div id="month_container" style="display: none;">
-            <label for="month">Month:</label>
-            <select name="month" class="month" id="month">
-                <option value="">Select month</option>
-                {% for month in month_range %}
-                    <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
-                {% endfor %}
-            </select><br>
-        </div>
-    
-        <div current_value ="{{current_day}}" id="current_day_value" style="display: none;"></div>
-        <label for="day">Date:</label>
-        <select name="day" id="day" required>
-            <option value="" >Select day</option>
-        </select><br>
 
-        <div id="current_time_container" style="display: none;">
-        <label for="current_time">Time:</label>
-        <select name="current_time" id="current_time">
-            <option value="">Select a time</option>
-            {% for hour in current_hour_range %}
-                {% if not hour == current_hour %}  
-                    <option value="{{ hour }}:00">{{ hour }}:00</option>
-                {%endif%}
-                {% if hour == current_hour %}
-                    {% if not current_minute > 25%}
-                        <option value="{{ hour }}:30">{{ hour }}:30</option>
-                    {%endif%}
-                {%else%}
-                    <option value="{{ hour }}:30">{{ hour }}:30</option>
-                {%endif%}
-            {% endfor %}
-        </select><br>
-    </div>
-    <div id="time_container" >
-        <label for="time">Time:</label>
-        <select name="time" id="time" required>
-            <option value="">Select a time</option>
-            {% for hour in time_range %}
-                <option value="{{ hour }}:00">{{ hour }}:00</option>
-                <option value="{{ hour }}:30">{{ hour }}:30</option>
-            {% endfor %}
-        </select><br>
-    </div>
-        <button type="submit" name="edit_reservation">Edit Reservation</button>
-    </form>
-{%if reserved%}
-<div class="alert alert-success" role="alert">
-    Your reservation has been updated
-</div>
-{%endif%}
-{%if booked%}
-<div class="alert alert-danger" role="alert">
-    Sorry this time is fully booked out
-</div>
-{%endif%}
+        {% if reserved %}
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="alert alert-success" role="alert">
+                        Your reservation has been booked
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if booked %}
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="alert alert-danger" role="alert">
+                        Sorry this time is fully booked out
+                    </div>
+                </div>
+            </div>
+        {% endif %}
 {% endif %}
 {% endblock %}

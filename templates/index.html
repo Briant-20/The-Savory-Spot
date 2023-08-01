@@ -1,27 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="center-container">
-{% for menu in menu_list %}
-    <h1>{{ menu.title }}</h1>
-    <input type="text" id="searchInput" placeholder="Search menu">
-    <p>{{ menu.content }}</p>
-    <div class="button-container">
-    {% for category in menu.category_set.all %}
-        <button class="category-titles" category="{{category}}">{{ category.title }}</button>
-    {% endfor %}
-    </div>
-    <div class="item-container">
-    {% for category in menu.category_set.all %}
-            {% for item in category.item_set.all %}
-                <div class="category-items items" style="display: none;" category="{{category}}" name="{{item.name}}">
-                    <h6 class="item">{{ item.name }}</h6>
-                    <p class="item">{{ item.description }}</p>
-                    <p class="item">Price: ${{ item.price }}</p>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            {% for menu in menu_list %}
+                <h1 class="text-center">{{ menu.title }}</h1>
+                <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search menu">
+                <p>{{ menu.content }}</p>
+                <div class="button-container">
+                    {% for category in menu.category_set.all %}
+                        <button class="category-titles btn btn-primary" category="{{category}}">{{ category.title }}</button>
+                    {% endfor %}
+                </div>
+                <div class="item-container mt-3">
+                    {% for category in menu.category_set.all %}
+                        {% for item in category.item_set.all %}
+                            <div class="category-items items card mb-3" style="display: none;" category="{{category}}" name="{{item.name}}">
+                                <div class="card-body">
+                                    <h6 class="item item-name card-title">{{ item.name }}</h6>
+                                    <p class="item item-description card-text">{{ item.description }}</p>
+                                    <p class="item item-price card-text">Price: ${{ item.price }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                 </div>
             {% endfor %}
-    {% endfor %}
+        </div>
     </div>
-{% endfor %}
 </div>
 <script>
 $(document).ready(function() {

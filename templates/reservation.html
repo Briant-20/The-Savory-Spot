@@ -2,8 +2,8 @@
 {% block content %}
 {% if not user.is_authenticated %}
  <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <h1 class="mb-4">Please log in to book a reservation</h1>
-    </div>
+    <h1 class="mb-4">Please log in to book a reservation</h1>
+</div>
 {% endif %}
 {% if user.is_authenticated %}
     <div class="container mt-4">

@@ -4,25 +4,29 @@ import smtplib
 import ssl
 from email.message import EmailMessage
 import os
+from .forms import ContactForm
 
 
 class ContactView(View):
     template_name = 'contact.html'
+    form_class = ContactForm
 
     def get(self, request):
+        form = self.form_class()
         sent = request.session.get('sent', False)
         request.session.pop('sent', None)
-        return render(request, self.template_name, {"sent": sent})
+        return render(request, self.template_name, {"form": form, "sent": sent})
 
     def post(self, request):
-        if request.method == 'POST':
-            name = request.POST.get('Name')
-            message = request.POST.get('Message')
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            message = form.cleaned_data['message']
             subject = 'Contact'
             body = f"""From {name}, username:{request.user}
 
-            {message}
-                """
+            {message}"""
+
             email_sender = os.environ.get("email_sender")
             email_password = os.environ.get("email_password")
             email_receiver = os.environ.get("email_sender")
@@ -40,5 +44,4 @@ class ContactView(View):
                 smtp.sendmail(email_sender, email_receiver, em.as_string())
             request.session['sent'] = True
             return redirect("contact")
-        else:
-            return redirect("contact")
+        return render(request, self.template_name, {"form": form})

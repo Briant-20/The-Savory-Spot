@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User
 from django.test import TestCase, RequestFactory
 from .models import Reservation
-from .views import create
+from .views import create, delete
 
 
 class TestReservationView(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user('user', 'test@gmail.com', 'password')
+        self.user = User.objects.create_user('user', None, 'password')
         self.factory = RequestFactory()
 
     def test_get_reservation(self):
@@ -32,16 +32,36 @@ class TestReservationView(TestCase):
 
         request.session = {}
 
-        result1 = create(request)
-        result2 = create(request)
-        result3 = create(request)
-        result4 = create(request)
+        reservation1 = create(request)
+        reservation2 = create(request)
+        reservation3 = create(request)
+        reservation4 = create(request)
 
-        self.assertTrue(result1)
-        self.assertTrue(result2)
-        self.assertTrue(result3)
+        self.assertTrue(reservation1)
+        self.assertTrue(reservation2)
+        self.assertTrue(reservation3)
 
-        self.assertFalse(result4)
+        self.assertFalse(reservation4)
 
         reservation_count = Reservation.objects.filter(user=self.user).count()
         self.assertEqual(reservation_count, 3)
+
+    def test_delete_reservation(self):
+        url = 'http://127.0.0.1:8000/reservation/'
+        request = self.factory.post(url, {
+            'year': '2023',
+            'month': '08',
+            'day': '02',
+            'time': '12:00',
+        })
+        request.user = self.user
+
+        request.session = {}
+
+        reservation = create(request)
+        self.assertTrue(reservation)
+        reservation_id = reservation.id
+        delete(request, reservation_id, None)
+
+        reservation_count = Reservation.objects.filter(user=self.user).count()
+        self.assertEqual(reservation_count, 0)

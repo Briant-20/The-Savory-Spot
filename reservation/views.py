@@ -96,7 +96,7 @@ def create(request):
         if existing_reservation:
             table_instance, _ = Table.objects.get_or_create(times=time_instance, table=str(i+1))
 
-    Reservation.objects.create(
+    reservation = Reservation.objects.create(
         year=year_instance,
         month=month_instance,
         day=day_instance,
@@ -121,13 +121,13 @@ The Savory Spot"""
 
     context = ssl.create_default_context()
 
-    #if not email_receiver == '':
-        #with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-            #smtp.login(email_sender, email_password)
-            #smtp.sendmail(email_sender, email_receiver, em.as_string())
+    if not email_receiver == '':
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+            smtp.login(email_sender, email_password)
+            smtp.sendmail(email_sender, email_receiver, em.as_string())
 
     request.session['reserved'] = True
-    return True
+    return reservation
 
 
 def delete(request, id, email):
@@ -194,7 +194,8 @@ class EditReservationView(View):
             request.session['reservation_id'] = id
         if 'edit_reservation' in request.POST:
             id = request.session.get('reservation_id')
-            created = create(request)
+            create(request)
+            created = request.session.get('reserved')
             if created:
                 delete(request, id, False)
                 return redirect('reservation')

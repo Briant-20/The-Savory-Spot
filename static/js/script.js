@@ -3,11 +3,10 @@ let categoryItems = document.getElementsByClassName("category-items");
 
 let display_category = (categoryTitle) =>{
     return function(){
-    categoryName = categoryTitle.getAttribute("name");
-    category = categoryTitle.getAttribute("category");
+    let category = categoryTitle.getAttribute("data-category");
     for (let i = 0; i < categoryItems.length; i++) {
         let categoryItem = categoryItems[i];
-        itemCategory = categoryItem.getAttribute("category");
+        let itemCategory = categoryItem.getAttribute("data-category");
         if (itemCategory === category){
             categoryItem.style.display = 'block';
         }
@@ -15,8 +14,8 @@ let display_category = (categoryTitle) =>{
             categoryItem.style.display = 'none';
         }
     }
-    }
-}
+    };
+};
 for (let i = 0; i < categoryTitles.length; i++) {
     let categoryTitle = categoryTitles[i];
     categoryTitle.addEventListener("click", display_category(categoryTitle));
@@ -51,25 +50,25 @@ $(document).ready(function () {
         10: 31,
         11: 30,
         12: 31
-    }
+    };
 
 $('.month').change(function () {
     let selectedMonth = $(this).val();
     let selectedYear = document.getElementById("year").value;
     let currentYear = document.getElementById('current_year').value;
-    currentMonth = document.getElementById('current_month_value').value
+    let currentMonth = document.getElementById('current_month_value').value;
     let days = daysPerMonth[selectedMonth];
-    startDay = 1;
+    let startDay = 1;
     if (selectedYear === currentYear){
         if ( selectedMonth === currentMonth){
-            startDay = document.getElementById('current_day_value').getAttribute("current_value");
+            startDay = document.getElementById('current_day_value').getAttribute("data-current_value");
         }
     }
     let daySelector = $('#day');
     daySelector.empty();
     daySelector.append(`<option value="">Select a day</option>`);
     for (let day = startDay; day <= days; day++) {
-        date = getDayWithPostfix(day)
+        let date = getDayWithPostfix(day);
         daySelector.append(`<option value="${date}">${date}</option>`);
     }
 });
@@ -87,42 +86,42 @@ $('#year').change(function () {
         monthContainer.style.display = 'none';
         month.removeAttribute("required");
         currentMonth.setAttribute("required", "required");
-        month.value = ""
+        month.value = "";
     } 
     else{
         currentMonthContainer.style.display = 'none';
         monthContainer.style.display = 'block';
         month.setAttribute("required", "required");
         currentMonth.removeAttribute("required");
-        currentMonth.value = ""
+        currentMonth.value = "";
     }
 });
 
 $('#day').change(function () {
     let selectedDay = $(this).val();
     let currentDay = document.getElementById('current_day_value').getAttribute("current_value");
-    currentDay = getDayWithPostfix(currentDay)
+    currentDay = getDayWithPostfix(currentDay);
     let selectedMonth = document.getElementById("current_month").value;
     let selectedYear = document.getElementById("year").value;
     let currentYear = document.getElementById('current_year').value;
-    let currentMonth = document.getElementById('current_month_value').value
-    let currentTimeContainer = document.getElementById("current_time_container")
-    let timeContainer = document.getElementById("time_container")
-    let currentTime = document.getElementById("current_time")
-    let time = document.getElementById("time")
+    let currentMonth = document.getElementById('current_month_value').value;
+    let currentTimeContainer = document.getElementById("current_time_container");
+    let timeContainer = document.getElementById("time_container");
+    let currentTime = document.getElementById("current_time");
+    let time = document.getElementById("time");
     if (selectedYear === currentYear && selectedMonth === currentMonth && selectedDay === currentDay){
-        console.log(selectedYear)
+        console.log(selectedYear);
         currentTimeContainer.style.display = "block";
-        timeContainer.style.display = "none"
+        timeContainer.style.display = "none";
         time.removeAttribute("required");
         currentTime.setAttribute("required", "required");
-        time.value = ""
+        time.value = "";
     }
     else{
         currentTimeContainer.style.display = "none";
-        timeContainer.style.display = "block"
+        timeContainer.style.display = "block";
         currentTime.removeAttribute("required");
         time.setAttribute("required", "required");
-        currentTime.value = ""
+        currentTime.value = "";
     }
 });

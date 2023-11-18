@@ -9,13 +9,13 @@
                 <p>{{ menu.content }}</p>
                 <div class="button-container">
                     {% for category in menu.category_set.all %}
-                        <button class="category-titles btn btn-primary" category="{{category}}">{{ category.title }}</button>
+                        <button class="category-titles btn btn-primary" data-category="{{category}}">{{ category.title }}</button>
                     {% endfor %}
                 </div>
                 <div class="item-container mt-3">
                     {% for category in menu.category_set.all %}
                         {% for item in category.item_set.all %}
-                            <div class="category-items items card mb-3" style="display: none;" category="{{category}}" name="{{item.name}}">
+                            <div class="category-items items card mb-3" style="display: none;" data-category="{{category}}" data-name="{{item.name}}">
                                 <div class="card-body">
                                     <h6 class="item item-name card-title">{{ item.name }}</h6>
                                     <p class="item item-description card-text">{{ item.description }}</p>

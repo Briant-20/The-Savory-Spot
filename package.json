@@ -1,0 +1,11 @@
+{
+  "name": "the-savory-spot",
+  "version": "1.0.0",
+  "description": "The Savory Spot is a website for a fictional restaurant. Users can view the menu to see what’s available and can book reservations once logged in.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC"
+}

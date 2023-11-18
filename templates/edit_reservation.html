@@ -10,6 +10,7 @@
                     <div class="form-group">
                         <label for="year">Year:</label>
                         <select name="year" id="year" class="form-control" required>
+                            <option value="" disabled selected>Select a year</option>
                             <option value="{{ current_year }}" id="current_year">{{ current_year }}</option>
                             {% for i in "123" %}
                                 <option value="{{ current_year|add:forloop.counter }}">{{ current_year|add:forloop.counter }}</option>
@@ -35,7 +36,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div current_value="{{current_day}}" id="current_day_value" style="display: none;"></div>
+                    <div data-current_value="{{current_day}}" id="current_day_value" style="display: none;"></div>
                     <div class="form-group">
                         <label for="day">Date:</label>
                         <select name="day" id="day" class="form-control" required>

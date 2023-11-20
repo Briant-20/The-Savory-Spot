@@ -99,7 +99,7 @@ $('#year').change(function () {
 
 $('#day').change(function () {
     let selectedDay = $(this).val();
-    let currentDay = document.getElementById('current_day_value').getAttribute("current_value");
+    let currentDay = document.getElementById('current_day_value').getAttribute("data-current_value");
     currentDay = getDayWithPostfix(currentDay);
     let selectedMonth = document.getElementById("current_month").value;
     let selectedYear = document.getElementById("year").value;
@@ -110,7 +110,6 @@ $('#day').change(function () {
     let currentTime = document.getElementById("current_time");
     let time = document.getElementById("time");
     if (selectedYear === currentYear && selectedMonth === currentMonth && selectedDay === currentDay){
-        console.log(selectedYear);
         currentTimeContainer.style.display = "block";
         timeContainer.style.display = "none";
         time.removeAttribute("required");

@@ -23,3 +23,15 @@ As a customer I can search for specific items in the menu so that I can see if w
 As a user I can edit my reservations so that I change them to better suit my schedule ✅ 
 
 As a user I can delete my reservations so that I don't stop the restaurant from taking other bookings ✅ 
+
+# Features 
+
+The menu can be viewed in sections by clicking on individual buttons that represent different categories. 
+
+The menu can also be searched and will display any meals on offer that match the request.
+
+Users can sign up to create their own account and sign back in at a later time. 
+
+Users can create, read, update, and delete their own reservations.
+
+Users can contact the restaurant by sending an email on the contact page.

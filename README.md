@@ -75,7 +75,15 @@ Deployment steps are as follows, after account setup:
 
 - Select **New** in the top-right corner of your Heroku Dashboard, and select **Create new app** from the dropdown menu.
 - Your app name must be unique, and then choose a region closest to you (EU or USA), and finally, select **Create App**.
-- From the new app **Settings**, click **Reveal Config Vars**, and set the value of KEY to `PORT`, and the value to `8000` then select *add*.
+- From the new app **Settings**, click **Reveal Config Vars**, and set the value of KEY to `PORT`, and the value to `8000` then select *add*.#
+`All Config Vars`:
+- `SECRET_KEY`: your own secret key 
+- `HEROKU_POSTGRESQL_SILVER_URL`: your URL
+- `DATABASE_URL`: your URL
+- `CLOUDINARY_URL`: your URL
+- `email_password`: your password
+- `email_sender`: your email
+
 - If using any confidential credentials, such as CREDS.JSON, then these should be pasted in the Config Variables as well.
 - Further down, to support dependencies, select **Add Buildpack**.
 - The order of the buildpacks is important, select `Python` first, then `Node.js` second. (if they are not in this order, you can drag them to rearrange them)
@@ -141,3 +149,13 @@ You can fork this repository by using the following steps:
 1. Log in to GitHub and locate the [GitHub Repository](https://github.com/Briant-20/The-Savory-Spot)
 2. At the top of the Repository (not top of page) just above the "Settings" Button on the menu, locate the "Fork" Button.
 3. Once clicked, you should now have a copy of the original repository in your own GitHub account!
+
+### Content
+
+| Source | Location | Notes |
+| --- | --- | --- |
+| [Markdown Builder](https://traveltimn.github.io/markdown-builder) | README and TESTING | tool to help generate the Markdown files |
+
+### Acknowledgements
+
+- I would like to thank my Code Institute mentor, [Aleksei Konovalov](https://code-institute-room.slack.com/team/U029X3N2WN9) for his support throughout the development of this project.

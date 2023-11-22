@@ -28,17 +28,35 @@ As a user I can delete my reservations so that I don't stop the restaurant from 
 
 The menu can be viewed in sections by clicking on individual buttons that represent different categories. 
 
+![screenshot](documentation/user_event1.png)
+
 The menu can also be searched and will display any meals on offer that match the request.
 
-Users can sign up to create their own account and sign back in at a later time. 
+![screenshot](documentation/user_event2.png)
 
-Users can log out of their existing account
+Users can sign up to create their own account and sign back in later. 
+
+![screenshot](documentation/user_event7.png)
+
+Users can log out of their existing account.
+
+![screenshot](documentation/user_event9.png)
 
 Users can create, read, update, and delete their own reservations.
 
+![screenshot](documentation/user_event3.png)
+
+![screenshot](documentation/user_event4.png)
+
+![screenshot](documentation/user_event5.png)
+
 Users can contact the restaurant by sending an email on the contact page.
 
-The admin can log in 
+![screenshot](documentation/user_event6.png)
+
+The admin can log in and change the available items on the menu as well as manage users and reservations.
+
+![screenshot](documentation/admin.png)
 
 # Future Features
 

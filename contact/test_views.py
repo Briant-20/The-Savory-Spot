@@ -25,6 +25,7 @@ class ContactViewTest(TestCase):
 
         self.assertEqual(response.status_code, 302)
 
-        self.assertTrue(mock_smtp.return_value.__enter__.return_value.sendmail.called)
+        self.assertTrue(
+                mock_smtp.return_value.__enter__.return_value.sendmail.called)
 
         self.assertTrue(self.client.session.get('sent', False))

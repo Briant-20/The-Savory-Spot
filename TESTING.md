@@ -69,3 +69,7 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 | script.js | [jshint](https://jshint.com/) | ![screenshot](documentation/javascript.png) | All clear, no errors found |
 
 | index.html | [jshint](https://jshint.com/) | ![screenshot](documentation/javascript2.png) | All clear, no errors found |
+
+## CCS 
+
+| style.css | [W3C](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fthe-savory-spot-36498e48077c.herokuapp.com%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) | ![screenshot](documentation/css.png) | All clear, no errors found |

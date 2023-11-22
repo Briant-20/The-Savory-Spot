@@ -50,4 +50,7 @@ class Reservation(models.Model):
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"DATE: {self.day} - {self.month} - {self.year} - TIME: {self.time} - TABLE: {self.table} - USER: {self.user}"
+        return (
+            f"DATE: {self.day} - {self.month} - {self.year} - "
+            f"TIME: {self.time} - TABLE: {self.table} - USER: {self.user}"
+        )

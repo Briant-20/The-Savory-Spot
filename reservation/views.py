@@ -44,7 +44,10 @@ def get_context(request):
     return context
 
 
-def check_existing_reservations(year_instance,month_instance,day_instance,time_instance,table_instance):
+def check_existing_reservations(
+        year_instance, month_instance, day_instance,
+        time_instance, table_instance
+        ):
     existing_reservation = Reservation.objects.filter(
         year=year_instance,
         month=month_instance,
@@ -68,7 +71,8 @@ def create(request):
     if time == "":
         time = request.POST.get('current_time')
     year_instance, _ = Year.objects.get_or_create(year=year)
-    month_instance, _ = Month.objects.get_or_create(years=year_instance, month=month)
+    month_instance, _ = Month.objects.get_or_create(
+        years=year_instance, month=month)
     day_instance, _ = Day.objects.get_or_create(months=month_instance, day=day)
     time_instance, _ = Time.objects.get_or_create(days=day_instance, time=time)
 
@@ -81,17 +85,20 @@ def create(request):
 
     max_reservations = 3
     if existing_reservations_count < max_reservations:
-        table_instance, _ = Table.objects.get_or_create(times=time_instance, table=str(existing_reservations_count+1))
+        table_instance, _ = Table.objects.get_or_create(
+            times=time_instance, table=str(existing_reservations_count+1))
 
     else:
         request.session['booked'] = True
         return False
 
     for i in range(max_reservations):
-        existing_reservation = check_existing_reservations(year_instance, month_instance,
-                                                           day_instance, time_instance, table_instance)
+        existing_reservation = check_existing_reservations(
+            year_instance, month_instance,
+            day_instance, time_instance, table_instance)
         if existing_reservation:
-            table_instance, _ = Table.objects.get_or_create(times=time_instance, table=str(i+1))
+            table_instance, _ = Table.objects.get_or_create(
+                times=time_instance, table=str(i+1))
 
     reservation = Reservation.objects.create(
         year=year_instance,
@@ -105,7 +112,8 @@ def create(request):
     body = f"""Hello {request.user}
 
 Thank you for your recent booking.
-Your table is reserved for {day_instance}/{month_instance}/{year_instance} at {time_instance} {table_instance}
+Your table is reserved for {day_instance}/{month_instance}/{year_instance}
+at {time_instance} {table_instance}
 
 Kind regards,
 The Savory Spot"""
@@ -140,7 +148,7 @@ def delete(request, id, email):
             body = f"""Hello {request.user}
 
 Your reservation has been canceled.
-If you did not perform this action please send us an email from our contact page.
+If you did not perform this action please send us an email on our contact page.
 
 Kind regards,
 The Savory Spot"""
@@ -154,9 +162,11 @@ The Savory Spot"""
             context = ssl.create_default_context()
             if email:
                 if not email_receiver == '':
-                    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+                    with smtplib.SMTP_SSL(
+                            'smtp.gmail.com', 465, context=context) as smtp:
                         smtp.login(email_sender, email_password)
-                        smtp.sendmail(email_sender, email_receiver, em.as_string())
+                        smtp.sendmail(
+                            email_sender, email_receiver, em.as_string())
                 request.session['deleted'] = True
 
     except Reservation.DoesNotExist:

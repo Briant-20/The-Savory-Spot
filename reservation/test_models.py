@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 class ReservationModelTest(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user(username='user', password='password')
+        self.user = User.objects.create_user(
+            username='user', password='password')
         self.year = Year.objects.create(year='2023')
         self.month = Month.objects.create(years=self.year, month='5')
         self.day = Day.objects.create(months=self.month, day='25th')
@@ -22,5 +23,8 @@ class ReservationModelTest(TestCase):
         )
 
     def test_reservation_str_representation(self):
-        string = f"DATE: {self.day} - {self.month} - {self.year} - TIME: {self.time} - TABLE: {self.table} - USER: {self.user}"
+        string = (
+            f"DATE: {self.day} - {self.month} - {self.year} - "
+            f"TIME: {self.time} - TABLE: {self.table} - USER: {self.user}"
+            )
         self.assertEqual(str(self.reservation), string)

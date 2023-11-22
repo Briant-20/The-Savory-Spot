@@ -119,53 +119,107 @@ $(document).ready(function () {
     });
 });
 
+// Attach a change event listener to the element with id 'year'
 $('#year').change(function () {
+    // Get the selected year value
     let selectedYear = $(this).val();
+
+    // Get the current year value from the element with id 'current_year'
     let currentYear = $('#current_year').val();
+
+    // Get references to relevant HTML elements
     let currentMonthContainer = document.getElementById('current_month_container');
     let monthContainer = document.getElementById('month_container');
     let currentMonth = document.getElementById('current_month');
     let month = document.getElementById('month');
+
+    // Check if the selected year is the same as the current year
     if (selectedYear === currentYear) {
+        // Display the container for the current month
         currentMonthContainer.style.display = 'block';
+
+        // Hide the container for selecting a different month
         monthContainer.style.display = 'none';
+
+        // Make the 'month' input not required
         month.removeAttribute("required");
+
+        // Make the 'currentMonth' input required
         currentMonth.setAttribute("required", "required");
+
+        // Clear the value of the 'month' input
         month.value = "";
     } 
-    else{
+    else {
+        // Hide the container for the current month
         currentMonthContainer.style.display = 'none';
+
+        // Display the container for selecting a different month
         monthContainer.style.display = 'block';
+
+        // Make the 'month' input required
         month.setAttribute("required", "required");
+
+        // Make the 'currentMonth' input not required
         currentMonth.removeAttribute("required");
+
+        // Clear the value of the 'currentMonth' input
         currentMonth.value = "";
     }
 });
 
+
+// Triggering the function when the value of the element with id 'day' changes
 $('#day').change(function () {
+    // Get the selected day from the dropdown
     let selectedDay = $(this).val();
+
+    // Get the current day from the 'data-current_value' attribute of the element with id 'current_day_value'
     let currentDay = document.getElementById('current_day_value').getAttribute("data-current_value");
+    
+    // Format the current day with a postfix (assuming there's a function getDayWithPostfix)
     currentDay = getDayWithPostfix(currentDay);
+
+    // Get the selected month from the element with id 'current_month'
     let selectedMonth = document.getElementById("current_month").value;
+
+    // Get the selected year from the element with id 'year'
     let selectedYear = document.getElementById("year").value;
+
+    // Get the current year from the element with id 'current_year'
     let currentYear = document.getElementById('current_year').value;
+
+    // Get the current month from the element with id 'current_month_value'
     let currentMonth = document.getElementById('current_month_value').value;
+
+    // Get references to various DOM elements
     let currentTimeContainer = document.getElementById("current_time_container");
     let timeContainer = document.getElementById("time_container");
     let currentTime = document.getElementById("current_time");
     let time = document.getElementById("time");
-    if (selectedYear === currentYear && selectedMonth === currentMonth && selectedDay === currentDay){
+
+    // Check if the selected date is the current date
+    if (selectedYear === currentYear && selectedMonth === currentMonth && selectedDay === currentDay) {
+        // If yes, show the current time container and hide the time container
         currentTimeContainer.style.display = "block";
         timeContainer.style.display = "none";
+
+        // Make adjustments to the 'required' attribute of the time input fields
         time.removeAttribute("required");
         currentTime.setAttribute("required", "required");
+
+        // Reset the value of the time input field
         time.value = "";
-    }
-    else{
+    } else {
+        // If not the current date, hide the current time container and show the time container
         currentTimeContainer.style.display = "none";
         timeContainer.style.display = "block";
+
+        // Make adjustments to the 'required' attribute of the time input fields
         currentTime.removeAttribute("required");
         time.setAttribute("required", "required");
+
+        // Reset the value of the current time input field
         currentTime.value = "";
     }
 });

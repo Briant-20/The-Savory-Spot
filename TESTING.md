@@ -69,6 +69,20 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 
 | Browser | Screenshot | Notes |
 | --- | --- | --- |
-| Chrome | ![screenshot](documentation/chrome.png) | Works as expected |
+| Chrome | ![screenshot](documentation/google.png) | Works as expected |
 | Firefox | ![screenshot](documentation/firefox.png) | Works as expected |
 | Edge | ![screenshot](documentation/edge.png) | Works as expected |
+
+## User Events 
+
+| Event | Screenshot | Notes |
+| --- | --- | --- |
+| Clicking the categories button displays the items available in that category | ![screenshot](documentation/user_event1.png) | Works as expected |
+| Entering an input into the search bar displays all relevant items | ![screenshot](documentation/user_event2.png) | Works as expected |
+| Clicking the create reservation button after inputting all the required items makes a reservation on the database for that time | ![screenshot](documentation/user_event3.png) | Works as expected |
+| Clicking the delete button removes the reservation from the screen and database | ![screenshot](documentation/user_event4.png) | Works as expected |
+| Clicking the edit button on the reservation brings you to the edit screen and after inputting the required items replaces the old reservation with the new one | ![screenshot](documentation/user_event5.png) | Works as expected |
+| Hitting the send button after entering the required inputs sends an email to the receiver  | ![screenshot](documentation/user_event6.png) | Works as expected |
+| Users can sign up with a username and password | ![screenshot](documentation/user_event7.png) | Works as expected |
+| Users can sign in using the same username and password they used to sign up | ![screenshot](documentation/user_event8.png) | Works as expected |
+| Users can sign out od their account | ![screenshot](documentation/user_event9.png) | Works as expected |

@@ -86,3 +86,11 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 | Users can sign up with a username and password | ![screenshot](documentation/user_event7.png) | Works as expected |
 | Users can sign in using the same username and password they used to sign up | ![screenshot](documentation/user_event8.png) | Works as expected |
 | Users can sign out od their account | ![screenshot](documentation/user_event9.png) | Works as expected |
+
+## Responsiveness
+
+| Size | Screenshot | Notes |
+| --- | --- | --- |
+| Mobile | ![screenshot](documentation/mobile.jpg) | Works as expected with slight style difference |
+| Tablet (DevTools) | ![screenshot](documentation/tablet.jpg) | Works as expected |
+| Desktop | ![screenshot](documentation/google.png) | Works as expected |

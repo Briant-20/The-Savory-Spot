@@ -63,3 +63,9 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 | contact.html | [W3C](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fthe-savory-spot-36498e48077c.herokuapp.com%2Fcontact%2F) | ![screenshot](documentation/contact.png) | All clear, no errors found |
 
 | edit_reservation.html | [W3C](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fthe-savory-spot-36498e48077c.herokuapp.com%2Fedit_reservation%2F) | ![screenshot](documentation/edit_reservation.png) | All clear, no errors found |
+
+## Javascript
+
+| script.js | [jshint](https://jshint.com/) | ![screenshot](documentation/javascript.png) | All clear, no errors found |
+
+| index.html | [jshint](https://jshint.com/) | ![screenshot](documentation/javascript2.png) | All clear, no errors found |

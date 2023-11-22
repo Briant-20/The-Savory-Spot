@@ -15,7 +15,8 @@ class ContactView(View):
         form = self.form_class()
         sent = request.session.get('sent', False)
         request.session.pop('sent', None)
-        return render(request, self.template_name, {"form": form, "sent": sent})
+        return render(request, self.template_name, {
+            "form": form, "sent": sent})
 
     def post(self, request):
         form = self.form_class(request.POST)
@@ -39,7 +40,8 @@ class ContactView(View):
 
             context = ssl.create_default_context()
 
-            with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+            with smtplib.SMTP_SSL(
+                    'smtp.gmail.com', 465, context=context) as smtp:
                 smtp.login(email_sender, email_password)
                 smtp.sendmail(email_sender, email_receiver, em.as_string())
             request.session['sent'] = True

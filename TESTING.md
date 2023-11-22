@@ -91,6 +91,11 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 
 | Size | Screenshot | Notes |
 | --- | --- | --- |
-| Mobile | ![screenshot](documentation/mobile.jpg) | Works as expected with slight style difference |
-| Tablet (DevTools) | ![screenshot](documentation/tablet.jpg) | Works as expected |
+| Mobile | ![screenshot](documentation/mobile.png) | Works as expected with slight style difference |
+| Tablet (DevTools) | ![screenshot](documentation/tablet.png) | Works as expected |
 | Desktop | ![screenshot](documentation/google.png) | Works as expected |
+
+## Lighthouse Audit
+
+![screenshot](documentation/lighthouse.png)
+
